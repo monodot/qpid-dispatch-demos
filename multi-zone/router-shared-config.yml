@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    labels:
+      application: router
+    name: router-sasl-config
+  data:
+    qdrouterd.conf: |-
+      pwcheck_method: auxprop
+      auxprop_plugin: sasldb
+      sasldb_path: /opt/interconnect/etc/qdrouterd.sasldb
+      mech_list: SCRAM-SHA-1 DIGEST-MD5 PLAIN EXTERNAL
+- kind: ServiceAccount
+  apiVersion: v1
+  metadata:
+    name: router
+    labels:
+      application: router
+- kind: RoleBinding
+  apiVersion: v1
+  metadata:
+    name: router-view
+    labels:
+      application: router
+  subjects:
+  - kind: ServiceAccount
+    name: router
+  roleRef:
+    name: "view"
