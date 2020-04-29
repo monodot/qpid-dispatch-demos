@@ -10,14 +10,34 @@ Setting up:
 
 ## How to deploy
 
-To deploy this demo:
+To deploy this demo, apply all of the provided YAMLs into a namespace, e.g. `oc apply -f ...`
 
-1.  Edit the `inter-router`, `intra-router` and `broker` YAMLs and specify the label key and value that you wish to use to ensure that the Pods are scheduled into separate "zones", using affinity. I've used the Node name, for example.
+```
+oc apply -f broker-shared-secrets.yml
 
-2.  Apply all of the provided YAMLs into a namespace, e.g. `oc apply -f ...`
+oc apply -f router-shared-config.yml
+
+oc apply -f router-shared-secrets.yml
+
+oc process -f broker-template.yml -p ZONE_NAME=zone1 -p NODE_SELECTOR_VALUE=node-0.example.com | oc apply -f -
+
+oc process -f broker-template.yml -p ZONE_NAME=zone2 -p NODE_SELECTOR_VALUE=node-1.example.com | oc apply -f -
+
+oc process -f broker-template.yml -p ZONE_NAME=zone3 -p NODE_SELECTOR_VALUE=node-2.example.com | oc apply -f -
+
+oc process -f intra-router-template.yml -p ZONE_NAME=zone1 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-0.example.com | oc apply -f -
+
+oc process -f intra-router-template.yml -p ZONE_NAME=zone2 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-1.example.com | oc apply -f -
+
+oc process -f intra-router-template.yml -p ZONE_NAME=zone3 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-2.example.com | oc apply -f -
+
+oc process -f inter-router-template.yml -p ZONE_NAME=zone1 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-0.example.com | oc apply -f -
+
+oc process -f inter-router-template.yml -p ZONE_NAME=zone2 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-1.example.com | oc apply -f -
+
+oc process -f inter-router-template.yml -p ZONE_NAME=zone3 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-2.example.com | oc apply -f -
+```
 
 You should get a nice console like this:
 
-<img src="irconsole.png" width="500">
-
-
+![](irconsole.png)

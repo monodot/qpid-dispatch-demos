@@ -11,7 +11,7 @@ items:
     qdrouterd.conf: |-
       pwcheck_method: auxprop
       auxprop_plugin: sasldb
-      sasldb_path: /opt/interconnect/etc/qdrouterd.sasldb
+      sasldb_path: /etc/sasldb/qdrouterd.sasldb
       mech_list: SCRAM-SHA-1 DIGEST-MD5 PLAIN EXTERNAL
 - kind: ServiceAccount
   apiVersion: v1
@@ -30,3 +30,39 @@ items:
     name: router
   roleRef:
     name: "view"
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    labels:
+      application: router
+    name: router-policies
+  data:
+    default.json: |-
+      [
+          ["vhost", {
+              "hostname": "$default",
+              "maxConnectionsPerUser": 10,
+              "allowUnknownUser": true,
+              "groups": {
+                  "admin": {
+                      "users": ["admin@router"],
+                      "remoteHosts": "*",
+                      "sources": "*",
+                      "targets": "*",
+                      "allowAnonymousSender": "true",
+                      "allowDynamicSource": "true"
+                  },
+                  "applications": {
+                      "users": ["testapp@router"],
+                      "remoteHosts": "*",
+                      "sources": ["ACME.MESSAGES.OUT", "ACME.SALES.OUT"],
+                      "targets": ["ACME.MESSAGES.IN", "ACME.SALES.IN"]
+                  },
+                  "$default": {
+                      "remoteHosts": "*",
+                      "sources": [],
+                      "targets": []
+                  }
+              }
+          }]
+      ]
