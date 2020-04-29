@@ -19,23 +19,23 @@ oc apply -f router-shared-config.yml
 
 oc apply -f router-shared-secrets.yml
 
-oc process -f broker-template.yml -p ZONE_NAME=zone1 -p NODE_SELECTOR_VALUE=node-0.example.com | oc apply -f -
+oc process -f broker-template.yml -p ZONE_NAME=aztec -p NODE_SELECTOR_VALUE=node-0.example.com | oc apply -f -
 
-oc process -f broker-template.yml -p ZONE_NAME=zone2 -p NODE_SELECTOR_VALUE=node-1.example.com | oc apply -f -
+oc process -f broker-template.yml -p ZONE_NAME=medieval -p NODE_SELECTOR_VALUE=node-1.example.com | oc apply -f -
 
-oc process -f broker-template.yml -p ZONE_NAME=zone3 -p NODE_SELECTOR_VALUE=node-2.example.com | oc apply -f -
+oc process -f broker-template.yml -p ZONE_NAME=industrial -p NODE_SELECTOR_VALUE=node-2.example.com | oc apply -f -
 
-oc process -f intra-router-template.yml -p ZONE_NAME=zone1 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-0.example.com | oc apply -f -
+oc process -f intra-router-template.yml -p ZONE_NAME=aztec -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-0.example.com | oc apply -f -
 
-oc process -f intra-router-template.yml -p ZONE_NAME=zone2 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-1.example.com | oc apply -f -
+oc process -f intra-router-template.yml -p ZONE_NAME=medieval -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-1.example.com | oc apply -f -
 
-oc process -f intra-router-template.yml -p ZONE_NAME=zone3 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-2.example.com | oc apply -f -
+oc process -f intra-router-template.yml -p ZONE_NAME=industrial -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-2.example.com | oc apply -f -
 
-oc process -f inter-router-template.yml -p ZONE_NAME=zone1 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-0.example.com | oc apply -f -
+oc process -f inter-router-template.yml -p ZONE_NAME=aztec -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-0.example.com | oc apply -f -
 
-oc process -f inter-router-template.yml -p ZONE_NAME=zone2 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-1.example.com | oc apply -f -
+oc process -f inter-router-template.yml -p ZONE_NAME=medieval -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-1.example.com | oc apply -f -
 
-oc process -f inter-router-template.yml -p ZONE_NAME=zone3 -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-2.example.com | oc apply -f -
+oc process -f inter-router-template.yml -p ZONE_NAME=industrial -p NODE_SELECTOR_KEY=kubernetes.io/hostname -p NODE_SELECTOR_VALUE=node-2.example.com | oc apply -f -
 ```
 
 You should get a nice console like this:

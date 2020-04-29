@@ -123,7 +123,7 @@ objects:
       # Connect to the router in each zone
       connector {
           role: inter-router
-          host: inter-router-zone1
+          host: inter-router-aztec
           port: 55672
           sslProfile: inter_router_tls
           verifyHostname: false
@@ -131,7 +131,7 @@ objects:
 
       connector {
           role: inter-router
-          host: inter-router-zone2
+          host: inter-router-medieval
           port: 55672
           sslProfile: inter_router_tls
           verifyHostname: false
@@ -139,7 +139,7 @@ objects:
 
       connector {
           role: inter-router
-          host: inter-router-zone3
+          host: inter-router-industrial
           port: 55672
           sslProfile: inter_router_tls
           verifyHostname: false
